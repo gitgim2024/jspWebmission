@@ -16,7 +16,7 @@ String bsubj = request.getParameter("bsubj");
 String bwriter = request.getParameter("bwriter");
 String bmemo = request.getParameter("bmemo");
 
-String sql = "insert into board3 values(board3_seq.nextval,?,?,?,sysdate,0)";
+String sql = "update board3 set bsubj=?,bwriter=?,bmemo=? where bno=?";
 String url = "jdbc:oracle:thin:@localhost:1521:xe";
 String user = "hr";
 String pw="123456";
@@ -26,9 +26,15 @@ PreparedStatement pstmt = conn.prepareStatement(sql);
 pstmt.setString(1, bsubj);
 pstmt.setString(2, bwriter);
 pstmt.setString(3, bmemo);
+pstmt.setInt(4, Integer.parseInt(request.getParameter("no")));
 pstmt.executeUpdate();
 
-response.sendRedirect("./board.jsp");
+response.sendRedirect("boardDetail.jsp?no="+request.getParameter("no"));
 %>
 </body>
 </html>
+
+<%
+pstmt.close();
+conn.close();
+%>

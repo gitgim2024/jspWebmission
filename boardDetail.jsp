@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../css/form.css" />
 </head>
 <body>
 <%
@@ -26,21 +27,34 @@ rs.next();
 String bsubj = rs.getString("bsubj");
 String bwriter = rs.getString("bwriter");
 String bmemo = rs.getString("bmemo");
+Integer cnt = rs.getInt("cnt");
 %>
 <h3><%=bsubj %></h3>
-<table>
+<table border="1">
+<colgroup>
+	<col width="10%"/>
+	<col width="30%"/>
+	<col width="10%"/>
+	<col width="30%"/>
+	<col width="10%"/>
+	<col width="10%"/>
+</colgroup>
 <tr>
 	<th>글번호</th>
 	<td><%=no %></td>
 	<th>작성자</th>
 	<td><%=bwriter%></td>
-	<th>내용</th>
-	<td><%=bmemo%></td>
 	<th>조회수</th>
-	<td><%=rs.getInt("cnt") %></td>
+	<td><%=cnt %></td>
 </tr>
-
-</table>
+<tr>
+	<th>내용</th>
+	<td colspan="6" height="200"><%=bmemo%></td>
+</tr>
+</table> <br />
+<a href="edit.jsp?no=<%=no %>&bwriter=<%=bwriter%>&cnt=<%=cnt %>">수정</a>
+<a href="delete.jsp?no=<%=no %>">삭제</a>
+<a href="board.jsp">목록</a>
 
 </body>
 </html>
